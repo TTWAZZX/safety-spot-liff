@@ -217,14 +217,17 @@
         async function showMainApp(userData) {
             updateUserInfoUI(userData);
             
+            // ⭐️⭐️ This is the corrected logic ⭐️⭐️
             if (userData.isAdmin) {
                 $('#admin-nav-item').show();
                 $('#admin-nav-item').on('click', loadPendingSubmissions);
                 $('#refresh-btn').on('click', loadPendingSubmissions);
             }
 
+            // This part now runs for EVERYONE, including Admins
             const activities = await callApi('getActivities');
             displayActivitiesUI(activities);
+            
             $('#main-app').fadeIn();
             Swal.close();
         }
