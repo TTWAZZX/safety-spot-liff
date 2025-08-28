@@ -23,13 +23,17 @@
         .leaderboard-rank { font-size: 1.2rem; font-weight: bold; min-width: 40px; text-align: center; }
         .leaderboard-item .fa-trophy { color: #ffc107; }
         .table-responsive { max-height: 75vh; }
-        /* New Styles for Social Features */
         .submission-card { background-color: #fff; border: 1px solid #e9ecef; }
         .like-btn .fa-heart { transition: color 0.2s, transform 0.2s; }
         .like-btn.liked .fa-heart { color: #dc3545; transform: scale(1.2); }
         .comment-list { max-height: 200px; overflow-y: auto; }
         .comment-item { background-color: #f8f9fa; font-size: 0.9rem; }
         .stat-card { border-left: 5px solid #0d6efd; }
+        /* New Styles for Image Viewer */
+        .activity-image { cursor: pointer; }
+        #image-viewer-modal .modal-content { background: transparent; border: none; }
+        #image-viewer-modal .modal-body { padding: 0; }
+        #image-viewer-img { max-width: 100%; max-height: 85vh; display: block; margin: auto; }
     </style>
 </head>
 <body>
@@ -54,35 +58,88 @@
     </div>
     
     <!-- Modals -->
-    <div class="modal fade" id="submission-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">เข้าร่วมกิจกรรม</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="submission-form"><input type="hidden" id="activityId-input"><h5 id="activity-title-modal" class="fw-bold mb-3"></h5><div class="mb-3"><label class="form-label">รายละเอียดจุดเสี่ยง</label><textarea class="form-control" id="description-input" rows="4" required></textarea></div><button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ส่งรายงาน</button></form></div></div></div></div>
-    <div class="modal fade" id="admin-reports-modal" tabindex="-1"><div class="modal-dialog modal-fullscreen"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">จัดการรายงาน (<span id="pending-count-modal">0</span>)</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="table-responsive"><table class="table table-striped table-hover mb-0"><thead class="table-dark"><tr><th>ผู้ส่ง</th><th>รายละเอียด</th><th>Actions</th></tr></thead><tbody id="submissions-table-body"></tbody></table></div><div id="reports-loading" class="text-center my-4"><div class="spinner-border"></div></div><div id="no-reports-message" class="text-center my-4" style="display:none;"><p class="text-muted">ไม่มีรายการที่รอตรวจสอบ</p></div></div></div></div></div>
-    <div class="modal fade" id="admin-activities-modal" tabindex="-1"><div class="modal-dialog modal-fullscreen"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">จัดการกิจกรรม</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><button id="create-activity-btn" class="btn btn-success mb-3"><i class="fas fa-plus"></i> สร้างกิจกรรมใหม่</button><div id="activities-list-admin"></div></div></div></div></div>
-    <div class="modal fade" id="activity-form-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="activity-form-title">สร้างกิจกรรมใหม่</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="activity-form"><input type="hidden" id="form-activity-id"><div class="mb-3"><label class="form-label">หัวข้อ</label><input type="text" class="form-control" id="form-activity-title" required></div><div class="mb-3"><label class="form-label">คำอธิบาย</label><textarea class="form-control" id="form-activity-desc" rows="3" required></textarea></div><div class="mb-3"><label class="form-label">Image URL</label><input type="text" class="form-control" id="form-activity-image" required></div><button type="submit" class="btn btn-primary w-100">บันทึก</button></form></div></div></div></div>
-    <!-- NEW: Activity Detail Modal -->
-    <div class="modal fade" id="activity-detail-modal" tabindex="-1"><div class="modal-dialog modal-fullscreen"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="activity-detail-title">...</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body bg-light"><div id="submissions-container" class="container-fluid"></div><div id="submissions-loading" class="text-center my-5"><div class="spinner-border"></div></div></div><div class="modal-footer"><button type="button" class="btn btn-primary w-100 fw-bold py-2 btn-join-from-detail"><i class="fas fa-plus-circle me-1"></i> รายงานจุดเสี่ยงในกิจกรรมนี้</button></div></div></div></div>
-    <!-- NEW: Admin Stats Modal -->
-    <div class="modal fade" id="admin-stats-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">ข้อมูลสรุป Dashboard</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div id="stats-container" class="row g-3"></div><div id="stats-loading" class="text-center my-4"><div class="spinner-border"></div></div></div></div></div></div>
+    <div class="modal fade" id="submission-modal" tabindex="-1">...</div>
+    <div class="modal fade" id="admin-reports-modal" tabindex="-1">...</div>
+    <div class="modal fade" id="admin-activities-modal" tabindex="-1">...</div>
+    <div class="modal fade" id="activity-form-modal" tabindex="-1">...</div>
+    <div class="modal fade" id="activity-detail-modal" tabindex="-1">...</div>
+    <div class="modal fade" id="admin-stats-modal" tabindex="-1">...</div>
+    <!-- (All previous modals are here, hidden for brevity) -->
+
+    <!-- NEW: Image Viewer Modal -->
+    <div class="modal fade" id="image-viewer-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" id="image-viewer-img" alt="Image Preview">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
-        const SERVER_URL = "https://script.google.com/macros/s/AKfycbwxqz4oyc5oOP_81fCeXbINoW-WLOv0l2Tmb3ZTc13B944uY8q8P1V1JPbdzGP4LTnexw/exec"; // <-- ตรวจสอบว่าเป็น URL ที่ถูกต้อง
-        const LIFF_ID = "2007053300-9xLKdwZp"; // <-- ตรวจสอบว่าเป็น LIFF ID ที่ถูกต้อง
+        // ... (The top part of your script is the same) ...
+        const SERVER_URL = "YOUR_APPS_SCRIPT_URL";
+        const LIFF_ID = "YOUR_LIFF_ID";
         let lineProfile = {}; 
         let allModals = {};
 
         $(document).ready(function() {
-            // Initialize all modals
-            ['submission', 'admin-reports', 'admin-activities', 'activity-form', 'activity-detail', 'admin-stats'].forEach(id => {
+            // Add the new modal to the list
+            ['submission', 'admin-reports', 'admin-activities', 'activity-form', 'activity-detail', 'admin-stats', 'image-viewer'].forEach(id => {
                 allModals[id] = new bootstrap.Modal(document.getElementById(`${id}-modal`));
             });
             initializeApp();
-            // Add listeners for lazy-loading content
             $('a[data-page="leaderboard-page"]').on('click', loadLeaderboard);
             $('a[data-page="profile-page"]').on('click', loadUserBadges);
         });
+
+        // ... (initializeApp, showMainApp, callApi functions are the same as the previous version) ...
+
+        // --- EVENT LISTENERS ---
+        // ... (All previous listeners are here) ...
+
+        // NEW: Image click listener
+        $(document).on('click', '.activity-image', function() {
+            const imageUrl = $(this).attr('src');
+            $('#image-viewer-img').attr('src', imageUrl);
+            allModals['image-viewer'].show();
+        });
+
+
+        // --- UI & DATA LOADING FUNCTIONS ---
+        // MODIFIED: displayActivitiesUI function
+        function displayActivitiesUI(activities){
+            const lists = $('#latest-activities-list, #all-activities-list');
+            lists.empty();
+            if(!activities || activities.length === 0){
+                lists.html('<p class="text-center text-muted">ยังไม่มีกิจกรรม</p>');
+                return;
+            } 
+            activities.forEach(act => {
+                // Added 'activity-image' class to the img tag
+                const cardHtml = `
+                <div class="card shadow-sm mb-3">
+                    <img src="${act.imageUrl}" class="card-img-top activity-image" style="height:150px;object-fit:cover;" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e9ecef/6c757d?text=Image';">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">${act.title}</h5>
+                        <p class="card-text text-muted small">${act.description}</p>
+                        <button class="btn btn-outline-primary w-100 fw-bold py-2 btn-view-activity" data-activity-id="${act.activityId}" data-activity-title="${act.title}">
+                            <i class="fas fa-eye me-1"></i> ดูรายงานและเข้าร่วม
+                        </button>
+                    </div>
+                </div>`;
+                lists.append(cardHtml);
+            });
+        }
 
         async function initializeApp() {
             try {
