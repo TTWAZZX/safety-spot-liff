@@ -340,7 +340,7 @@
                 lineUserId: lineProfile.userId,
                 activityId: $("#activityId-input").val(),
                 description: $("#description-input").val().trim(),
-                photoUrl: ""
+                photoUrl: "" // Image upload is not implemented
             };
             try {
                 await callApi("submitReport", payload);
