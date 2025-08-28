@@ -20,88 +20,10 @@
     </style>
 </head>
 <body>
-    <!-- HTML Content from previous version... (no changes here) -->
-    <!-- ส่วนลงทะเบียนสำหรับผู้ใช้ใหม่ -->
-    <div id="registration-page" class="container py-4">
-        <div class="card shadow-sm border-0"><div class="card-body p-4">
-            <h4 class="card-title text-center fw-bold mb-1">ลงทะเบียนใช้งาน</h4>
-            <p class="text-center text-muted mb-4">กรุณากรอกข้อมูลเพื่อเริ่มต้นใช้งาน</p>
-            <form id="registration-form">
-                <div class="mb-3">
-                    <label for="fullName" class="form-label">ชื่อ-นามสกุล</label>
-                    <input type="text" class="form-control" id="fullName" required placeholder="เช่น สมชาย ใจดี">
-                </div>
-                <div class="mb-3">
-                    <label for="employeeId" class="form-label">รหัสพนักงาน</label>
-                    <input type="text" class="form-control" id="employeeId" required placeholder="เช่น 12345">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ยืนยันและเริ่มต้นใช้งาน</button>
-            </form>
-        </div></div>
-    </div>
-    <!-- ส่วนแอปหลัก (จะแสดงหลังลงทะเบียนแล้ว) -->
-    <div id="main-app">
-        <main class="container py-3 pb-5 mb-5">
-            <div id="home-page" class="page active">
-                <div class="d-flex align-items-center p-3 mb-4 bg-white rounded-3 shadow-sm">
-                    <img id="user-profile-pic" src="https://placehold.co/60x60" class="rounded-circle me-3" width="60" height="60">
-                    <div>
-                        <p class="mb-0 text-muted small" id="user-employee-id">รหัส: ...</p>
-                        <h5 class="mb-0 fw-bold" id="user-display-name">...</h5>
-                    </div>
-                    <div class="ms-auto text-end"><div class="fw-bold text-primary">
-                        <h4 class="mb-0" id="user-score">0</h4><small>คะแนน</small>
-                    </div></div>
-                </div>
-                <h5 class="mb-3">กิจกรรมล่าสุด</h5>
-                <div id="latest-activities-list"><p class="text-center text-muted">กำลังโหลดกิจกรรม...</p></div>
-            </div>
-            <div id="activities-page" class="page">
-                <h4 class="mb-3 fw-bold">กิจกรรมทั้งหมด</h4><div id="all-activities-list"></div>
-            </div>
-            <div id="leaderboard-page" class="page">
-                 <h4 class="mb-3 fw-bold">กระดานผู้นำ</h4><p class="text-center text-muted mt-5">ฟังก์ชันนี้ยังไม่เปิดใช้งาน</p>
-            </div>
-            <div id="profile-page" class="page">
-                <div class="card shadow-sm border-0"><div class="card-body text-center p-4">
-                    <img id="profile-page-pic" src="https://placehold.co/80x80" class="rounded-circle mb-3 border border-3 border-primary" width="80" height="80">
-                    <h4 id="profile-page-name" class="fw-bold">...</h4>
-                    <p class="text-muted" id="profile-page-employee-id">รหัสพนักงาน: ...</p>
-                    <p class="text-muted mb-4">คะแนนสะสม: <span class="fw-bold text-primary" id="profile-page-score">0</span></p>
-                </div></div>
-            </div>
-        </main>
-        <nav class="navbar navbar-light bg-white fixed-bottom bottom-nav">
-            <div class="container-fluid d-flex justify-content-around">
-                <a href="#home" class="nav-link active text-center" data-page="home-page"><i class="fas fa-home fs-4"></i><div style="font-size: 0.7rem;">หน้าหลัก</div></a>
-                <a href="#activities" class="nav-link text-center" data-page="activities-page"><i class="fas fa-tasks fs-4"></i><div style="font-size: 0.7rem;">กิจกรรม</div></a>
-                <a href="#leaderboard" class="nav-link text-center" data-page="leaderboard-page"><i class="fas fa-trophy fs-4"></i><div style="font-size: 0.7rem;">อันดับ</div></a>
-                <a href="#profile" class="nav-link text-center" data-page="profile-page"><i class="fas fa-user fs-4"></i><div style="font-size: 0.7rem;">โปรไฟล์</div></a>
-            </div>
-        </nav>
-    </div>
-    <!-- Modal: Submission Form -->
-    <div class="modal fade" id="submission-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="submissionModalLabel">เข้าร่วมกิจกรรม</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-            <form id="submission-form">
-                <input type="hidden" id="activityId-input">
-                <h5 id="activity-title-modal" class="fw-bold mb-3"></h5>
-                <div class="mb-3">
-                    <label for="description-input" class="form-label">รายละเอียดจุดเสี่ยงที่พบ</label>
-                    <textarea class="form-control" id="description-input" rows="4" required placeholder="อธิบายสิ่งที่พบเจอ..."></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="photo-input" class="form-label">แนบรูปภาพ (ถ้ามี)</label>
-                    <input class="form-control" type="file" id="photo-input" accept="image/*">
-                </div>
-                <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ส่งรายงาน</button>
-            </form>
-        </div>
-    </div></div></div>
+    <!-- HTML Content (No changes here) -->
+    <div id="registration-page" class="container py-4"><div class="card shadow-sm border-0"><div class="card-body p-4"><h4 class="card-title text-center fw-bold mb-1">ลงทะเบียนใช้งาน</h4><p class="text-center text-muted mb-4">กรุณากรอกข้อมูลเพื่อเริ่มต้นใช้งาน</p><form id="registration-form"><div class="mb-3"><label for="fullName" class="form-label">ชื่อ-นามสกุล</label><input type="text" class="form-control" id="fullName" required placeholder="เช่น สมชาย ใจดี"></div><div class="mb-3"><label for="employeeId" class="form-label">รหัสพนักงาน</label><input type="text" class="form-control" id="employeeId" required placeholder="เช่น 12345"></div><button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ยืนยันและเริ่มต้นใช้งาน</button></form></div></div></div>
+    <div id="main-app"><main class="container py-3 pb-5 mb-5"><div id="home-page" class="page active"><div class="d-flex align-items-center p-3 mb-4 bg-white rounded-3 shadow-sm"><img id="user-profile-pic" src="https://placehold.co/60x60" class="rounded-circle me-3" width="60" height="60"><div><p class="mb-0 text-muted small" id="user-employee-id">รหัส: ...</p><h5 class="mb-0 fw-bold" id="user-display-name">...</h5></div><div class="ms-auto text-end"><div class="fw-bold text-primary"><h4 class="mb-0" id="user-score">0</h4><small>คะแนน</small></div></div></div><h5 class="mb-3">กิจกรรมล่าสุด</h5><div id="latest-activities-list"><p class="text-center text-muted">กำลังโหลดกิจกรรม...</p></div></div><div id="activities-page" class="page"><h4 class="mb-3 fw-bold">กิจกรรมทั้งหมด</h4><div id="all-activities-list"></div></div><div id="leaderboard-page" class="page"><h4 class="mb-3 fw-bold">กระดานผู้นำ</h4><p class="text-center text-muted mt-5">ฟังก์ชันนี้ยังไม่เปิดใช้งาน</p></div><div id="profile-page" class="page"><div class="card shadow-sm border-0"><div class="card-body text-center p-4"><img id="profile-page-pic" src="https://placehold.co/80x80" class="rounded-circle mb-3 border border-3 border-primary" width="80" height="80"><h4 id="profile-page-name" class="fw-bold">...</h4><p class="text-muted" id="profile-page-employee-id">รหัสพนักงาน: ...</p><p class="text-muted mb-4">คะแนนสะสม: <span class="fw-bold text-primary" id="profile-page-score">0</span></p></div></div></div></main><nav class="navbar navbar-light bg-white fixed-bottom bottom-nav"><div class="container-fluid d-flex justify-content-around"><a href="#home" class="nav-link active text-center" data-page="home-page"><i class="fas fa-home fs-4"></i><div style="font-size: 0.7rem;">หน้าหลัก</div></a><a href="#activities" class="nav-link text-center" data-page="activities-page"><i class="fas fa-tasks fs-4"></i><div style="font-size: 0.7rem;">กิจกรรม</div></a><a href="#leaderboard" class="nav-link text-center" data-page="leaderboard-page"><i class="fas fa-trophy fs-4"></i><div style="font-size: 0.7rem;">อันดับ</div></a><a href="#profile" class="nav-link text-center" data-page="profile-page"><i class="fas fa-user fs-4"></i><div style="font-size: 0.7rem;">โปรไฟล์</div></a></div></nav></div>
+    <div class="modal fade" id="submission-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="submissionModalLabel">เข้าร่วมกิจกรรม</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="submission-form"><input type="hidden" id="activityId-input"><h5 id="activity-title-modal" class="fw-bold mb-3"></h5><div class="mb-3"><label for="description-input" class="form-label">รายละเอียดจุดเสี่ยงที่พบ</label><textarea class="form-control" id="description-input" rows="4" required placeholder="อธิบายสิ่งที่พบเจอ..."></textarea></div><div class="mb-3"><label for="photo-input" class="form-label">แนบรูปภาพ (ถ้ามี)</label><input class="form-control" type="file" id="photo-input" accept="image/*"></div><button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ส่งรายงาน</button></form></div></div></div></div>
 
     <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -109,17 +31,11 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
     <script>
-        // ===============================================================
-        // CONFIGURATION
-        // ===============================================================
-        const SERVER_URL = "https://script.google.com/macros/s/AKfycbwxqz4oyc5oOP_81fCeXbINoW-WLOv0l2Tmb3ZTc13B944uY8q8P1V1JPbdzGP4LTnexw/exec"; // ❗️❗️ ใส่ URL ที่ลงท้ายด้วย /exec
+        const SERVER_URL = "https://script.google.com/macros/s/AKfycbwxqz4oyc5oOP_81fCeXbINoW-WLOv0l2Tmb3ZTc13B944uY8q8P1V1JPbdzGP4LTnexw/exec";
         const LIFF_ID = "2007053300-9xLKdwZp";
         let lineProfile = {}; 
         let submissionModal;
 
-        // ===============================================================
-        // INITIALIZATION
-        // ===============================================================
         $(document).ready(function() {
             submissionModal = new bootstrap.Modal(document.getElementById('submission-modal'));
             initializeApp();
@@ -128,144 +44,50 @@
         async function initializeApp() {
             try {
                 Swal.fire({ title: 'กำลังเริ่มต้น...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-                
-                // ⭐️ DEBUG: แสดง URL ที่กำลังจะใช้
-                console.log("Connecting to API Server:", SERVER_URL);
-
                 await liff.init({ liffId: LIFF_ID });
-                if (!liff.isLoggedIn()) {
-                    liff.login();
-                    return;
-                }
-
+                if (!liff.isLoggedIn()) { liff.login(); return; }
                 lineProfile = await liff.getProfile();
                 const result = await callApi('getUserProfile', { lineUserId: lineProfile.userId });
-
-                if (result.registered) {
-                    showMainApp(result.user);
-                } else {
-                    Swal.close();
-                    $('#registration-page').fadeIn();
-                }
-
+                if (result.registered) { showMainApp(result.user); } 
+                else { Swal.close(); $('#registration-page').fadeIn(); }
             } catch (error) {
-                // ⭐️ DEBUG: แสดงข้อผิดพลาดที่เกิดขึ้น
                 console.error("Initialization Error:", error);
-                Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถโหลดแอปได้ โปรดดูที่ Console', 'error');
+                Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถโหลดแอปได้', 'error');
             }
+        }
+
+        // ⭐️⭐️ ฟังก์ชัน callApi ใหม่โดยใช้เทคนิค JSONP ⭐️⭐️
+        function callApi(action, payload = {}) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+                window[callbackName] = function(data) {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    if (data.status === 'success') {
+                        resolve(data.data);
+                    } else {
+                        reject(new Error(data.message));
+                    }
+                };
+
+                const script = document.createElement('script');
+                const payloadStr = encodeURIComponent(JSON.stringify(payload));
+                script.src = `${SERVER_URL}?callback=${callbackName}&action=${action}&payload=${payloadStr}`;
+                script.onerror = () => reject(new Error('Failed to load API script.'));
+                document.body.appendChild(script);
+            });
         }
         
-        // ... (The rest of the functions are the same as before) ...
-        async function showMainApp(userData) {
-            updateUserInfoUI(userData);
-            const activities = await callApi('getActivities');
-            displayActivitiesUI(activities);
-            $('#main-app').fadeIn();
-            Swal.close();
-        }
-        $('#registration-form').on('submit', handleRegistration);
-        $('.nav-link').on('click', handleNavigation);
-        $(document).on('click', '.btn-join', handleJoinClick);
-        $('#submission-form').on('submit', handleSubmission);
-        async function handleRegistration(e) {
-            e.preventDefault();
-            const fullName = $('#fullName').val().trim();
-            const employeeId = $('#employeeId').val().trim();
-            if (!fullName || !employeeId) {
-                Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลให้ครบถ้วน', 'warning');
-                return;
-            }
-            Swal.fire({ title: 'กำลังบันทึก...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-            try {
-                const newUser = await callApi('registerUser', {
-                    lineUserId: lineProfile.userId,
-                    displayName: lineProfile.displayName,
-                    pictureUrl: lineProfile.pictureUrl,
-                    fullName: fullName,
-                    employeeId: employeeId
-                });
-                $('#registration-page').hide();
-                await showMainApp(newUser);
-                Swal.fire('ลงทะเบียนสำเร็จ!', 'ยินดีต้อนรับสู่ Safety Spot', 'success');
-            } catch (error) {
-                Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลงทะเบียนได้', 'error');
-            }
-        }
-        function handleNavigation(e) {
-            e.preventDefault();
-            const pageId = $(this).data('page');
-            $('.nav-link').removeClass('active');
-            $(this).addClass('active');
-            $('.page').removeClass('active');
-            $('#' + pageId).addClass('active');
-        }
-        function handleJoinClick() {
-            const activityId = $(this).data('activity-id');
-            const activityTitle = $(this).data('activity-title');
-            $('#activityId-input').val(activityId);
-            $('#activity-title-modal').text(activityTitle);
-            submissionModal.show();
-        }
-        async function handleSubmission(e) {
-            e.preventDefault();
-            Swal.fire({ title: 'กำลังส่งรายงาน...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-            const payload = {
-                lineUserId: lineProfile.userId,
-                activityId: $('#activityId-input').val(),
-                description: $('#description-input').val().trim(),
-                photoUrl: ""
-            };
-            try {
-                await callApi('submitReport', payload);
-                submissionModal.hide();
-                $('#submission-form')[0].reset();
-                Swal.fire('ส่งรายงานสำเร็จ!', 'ขอบคุณสำหรับการมีส่วนร่วม', 'success');
-            } catch (error) {
-                Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถส่งรายงานได้', 'error');
-            }
-        }
-        async function callApi(action, payload = {}) {
-            const response = await fetch(SERVER_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ action, payload })
-            });
-            const result = await response.json();
-            if (result.status === 'error') throw new Error(result.message);
-            return result.data;
-        }
-        function updateUserInfoUI(userData) {
-            $('#user-profile-pic, #profile-page-pic').attr('src', userData.pictureUrl);
-            $('#user-display-name, #profile-page-name').text(userData.fullName);
-            $('#user-employee-id').text(`รหัส: ${userData.employeeId}`);
-            $('#profile-page-employee-id').text(`รหัสพนักงาน: ${userData.employeeId}`);
-            $('#user-score, #profile-page-score').text(userData.totalScore);
-        }
-        function displayActivitiesUI(activities) {
-            const homeList = $('#latest-activities-list');
-            const allList = $('#all-activities-list');
-            homeList.empty();
-            allList.empty();
-            if (!activities || activities.length === 0) {
-                const noActivityHtml = '<p class="text-center text-muted">ยังไม่มีกิจกรรมในขณะนี้</p>';
-                homeList.html(noActivityHtml);
-                allList.html(noActivityHtml);
-                return;
-            }
-            activities.forEach(activity => {
-                const cardHtml = `
-                    <div class="card shadow-sm mb-3 activity-card">
-                        <img src="${activity.imageUrl}" class="card-img-top" alt="${activity.title}" style="height: 150px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">${activity.title}</h5>
-                            <p class="card-text text-muted small">${activity.description}</p>
-                            <button class="btn btn-join w-100 fw-bold py-2" data-activity-id="${activity.activityId}" data-activity-title="${activity.title}"><i class="fas fa-plus-circle me-1"></i> เข้าร่วมกิจกรรม</button>
-                        </div>
-                    </div>`;
-                homeList.append(cardHtml);
-                allList.append(cardHtml);
-            });
-        }
+        // --- Event Listeners and UI Functions (No changes from before) ---
+        async function showMainApp(userData){updateUserInfoUI(userData);const activities=await callApi('getActivities');displayActivitiesUI(activities);$('#main-app').fadeIn();Swal.close();}
+        $('#registration-form').on('submit',async function(e){e.preventDefault();const fullName=$('#fullName').val().trim();const employeeId=$('#employeeId').val().trim();if(!fullName||!employeeId){Swal.fire('ข้อมูลไม่ครบ','กรุณากรอกข้อมูลให้ครบถ้วน','warning');return;}
+        Swal.fire({title:'กำลังบันทึก...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});try{const newUser=await callApi('registerUser',{lineUserId:lineProfile.userId,displayName:lineProfile.displayName,pictureUrl:lineProfile.pictureUrl,fullName:fullName,employeeId:employeeId});$('#registration-page').hide();await showMainApp(newUser);Swal.fire('ลงทะเบียนสำเร็จ!','ยินดีต้อนรับสู่ Safety Spot','success');}catch(error){Swal.fire('เกิดข้อผิดพลาด','ไม่สามารถลงทะเบียนได้','error');}});
+        $('.nav-link').on('click',function(e){e.preventDefault();const pageId=$(this).data('page');$('.nav-link').removeClass('active');$(this).addClass('active');$('.page').removeClass('active');$('#'+pageId).addClass('active');});
+        $(document).on('click','.btn-join',function(){const activityId=$(this).data('activity-id');const activityTitle=$(this).data('activity-title');$('#activityId-input').val(activityId);$('#activity-title-modal').text(activityTitle);submissionModal.show();});
+        $('#submission-form').on('submit',async function(e){e.preventDefault();Swal.fire({title:'กำลังส่งรายงาน...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});const payload={lineUserId:lineProfile.userId,activityId:$('#activityId-input').val(),description:$('#description-input').val().trim(),photoUrl:""};try{await callApi('submitReport',payload);submissionModal.hide();$('#submission-form')[0].reset();Swal.fire('ส่งรายงานสำเร็จ!','ขอบคุณสำหรับการมีส่วนร่วม','success');}catch(error){Swal.fire('เกิดข้อผิดพลาด','ไม่สามารถส่งรายงานได้','error');}});
+        function updateUserInfoUI(userData){$('#user-profile-pic, #profile-page-pic').attr('src',userData.pictureUrl);$('#user-display-name, #profile-page-name').text(userData.fullName);$('#user-employee-id').text(`รหัส: ${userData.employeeId}`);$('#profile-page-employee-id').text(`รหัสพนักงาน: ${userData.employeeId}`);$('#user-score, #profile-page-score').text(userData.totalScore);}
+        function displayActivitiesUI(activities){const homeList=$('#latest-activities-list');const allList=$('#all-activities-list');homeList.empty();allList.empty();if(!activities||activities.length===0){const noActivityHtml='<p class="text-center text-muted">ยังไม่มีกิจกรรมในขณะนี้</p>';homeList.html(noActivityHtml);allList.html(noActivityHtml);return;}
+        activities.forEach(activity=>{const cardHtml=`<div class="card shadow-sm mb-3 activity-card"><img src="${activity.imageUrl}" class="card-img-top" alt="${activity.title}" style="height: 150px; object-fit: cover;"><div class="card-body"><h5 class="card-title fw-bold">${activity.title}</h5><p class="card-text text-muted small">${activity.description}</p><button class="btn btn-join w-100 fw-bold py-2" data-activity-id="${activity.activityId}" data-activity-title="${activity.title}"><i class="fas fa-plus-circle me-1"></i> เข้าร่วมกิจกรรม</button></div></div>`;homeList.append(cardHtml);allList.append(cardHtml);});}
     </script>
 </body>
 </html>
