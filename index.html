@@ -24,18 +24,73 @@
 </head>
 <body>
     <!-- Registration Page -->
-    <div id="registration-page" class="container py-4">...</div>
+    <div id="registration-page" class="container py-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center fw-bold mb-1">ลงทะเบียนใช้งาน</h4>
+                <p class="text-center text-muted mb-4">กรุณากรอกข้อมูลเพื่อเริ่มต้นใช้งาน</p>
+                <form id="registration-form">
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">ชื่อ-นามสกุล</label>
+                        <input type="text" class="form-control" id="fullName" required placeholder="เช่น สมชาย ใจดี">
+                    </div>
+                    <div class="mb-3">
+                        <label for="employeeId" class="form-label">รหัสพนักงาน</label>
+                        <input type="text" class="form-control" id="employeeId" required placeholder="เช่น 12345">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ยืนยันและเริ่มต้นใช้งาน</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Main App -->
     <div id="main-app">
         <main class="container py-3 pb-5 mb-5">
-            <!-- User Pages (Home, Activities, etc.) -->
-            <div id="home-page" class="page active">...</div>
-            <div id="activities-page" class="page">...</div>
-            <div id="leaderboard-page" class="page">...</div>
-            <div id="profile-page" class="page">...</div>
+            <!-- Page 1: Home -->
+            <div id="home-page" class="page active">
+                <div class="d-flex align-items-center p-3 mb-4 bg-white rounded-3 shadow-sm">
+                    <img id="user-profile-pic" src="https://placehold.co/60x60" class="rounded-circle me-3" width="60" height="60">
+                    <div>
+                        <p class="mb-0 text-muted small" id="user-employee-id">รหัส: ...</p>
+                        <h5 class="mb-0 fw-bold" id="user-display-name">...</h5>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <div class="fw-bold text-primary">
+                            <h4 class="mb-0" id="user-score">0</h4>
+                            <small>คะแนน</small>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="mb-3">กิจกรรมล่าสุด</h5>
+                <div id="latest-activities-list"><p class="text-center text-muted">กำลังโหลดกิจกรรม...</p></div>
+            </div>
 
-            <!-- ⭐️⭐️ Admin Page (Hidden by default) ⭐️⭐️ -->
+            <!-- Page 2: Activities -->
+            <div id="activities-page" class="page">
+                <h4 class="mb-3 fw-bold">กิจกรรมทั้งหมด</h4>
+                <div id="all-activities-list"></div>
+            </div>
+
+            <!-- Page 3: Leaderboard -->
+            <div id="leaderboard-page" class="page">
+                <h4 class="mb-3 fw-bold">กระดานผู้นำ</h4>
+                <p class="text-center text-muted mt-5">ฟังก์ชันนี้ยังไม่เปิดใช้งาน</p>
+            </div>
+
+            <!-- Page 4: Profile -->
+            <div id="profile-page" class="page">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <img id="profile-page-pic" src="https://placehold.co/80x80" class="rounded-circle mb-3 border border-3 border-primary" width="80" height="80">
+                        <h4 id="profile-page-name" class="fw-bold">...</h4>
+                        <p class="text-muted" id="profile-page-employee-id">รหัสพนักงาน: ...</p>
+                        <p class="text-muted mb-4">คะแนนสะสม: <span class="fw-bold text-primary" id="profile-page-score">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Admin Page (Hidden by default) -->
             <div id="admin-page" class="page">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="fw-bold">จัดการรายงาน (<span id="pending-count">0</span>)</h4>
@@ -57,8 +112,12 @@
                                 <tbody id="submissions-table-body"></tbody>
                             </table>
                         </div>
-                        <div id="loading-spinner" class="text-center my-4 d-none">...</div>
-                        <div id="no-data-message" class="text-center my-4 d-none">...</div>
+                        <div id="loading-spinner" class="text-center my-4 d-none">
+                            <div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+                        </div>
+                        <div id="no-data-message" class="text-center my-4 d-none">
+                            <p class="text-muted">ไม่มีรายการที่รอตรวจสอบ</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,22 +126,56 @@
         <!-- Bottom Navigation Bar -->
         <nav class="navbar navbar-light bg-white fixed-bottom bottom-nav">
             <div class="container-fluid d-flex justify-content-around">
-                <a href="#home" class="nav-link active text-center" data-page="home-page">...</a>
-                <a href="#activities" class="nav-link text-center" data-page="activities-page">...</a>
-                <!-- ⭐️⭐️ Admin Nav Item (Hidden by default) ⭐️⭐️ -->
+                <a href="#home" class="nav-link active text-center" data-page="home-page">
+                    <i class="fas fa-home fs-4"></i>
+                    <div style="font-size: 0.7rem;">หน้าหลัก</div>
+                </a>
+                <a href="#activities" class="nav-link text-center" data-page="activities-page">
+                    <i class="fas fa-tasks fs-4"></i>
+                    <div style="font-size: 0.7rem;">กิจกรรม</div>
+                </a>
                 <a href="#admin" class="nav-link text-center" data-page="admin-page" id="admin-nav-item" style="display: none;">
                     <i class="fas fa-user-shield fs-4"></i>
                     <div style="font-size: 0.7rem;">Admin</div>
                 </a>
-                <a href="#leaderboard" class="nav-link text-center" data-page="leaderboard-page">...</a>
-                <a href="#profile" class="nav-link text-center" data-page="profile-page">...</a>
+                <a href="#leaderboard" class="nav-link text-center" data-page="leaderboard-page">
+                    <i class="fas fa-trophy fs-4"></i>
+                    <div style="font-size: 0.7rem;">อันดับ</div>
+                </a>
+                <a href="#profile" class="nav-link text-center" data-page="profile-page">
+                    <i class="fas fa-user fs-4"></i>
+                    <div style="font-size: 0.7rem;">โปรไฟล์</div>
+                </a>
             </div>
         </nav>
     </div>
     
-    <!-- (Modal and other HTML elements are the same) -->
-    <div id="registration-page" class="container py-4"><div class="card shadow-sm border-0"><div class="card-body p-4"><h4 class="card-title text-center fw-bold mb-1">ลงทะเบียนใช้งาน</h4><p class="text-center text-muted mb-4">กรุณากรอกข้อมูลเพื่อเริ่มต้นใช้งาน</p><form id="registration-form"><div class="mb-3"><label for="fullName" class="form-label">ชื่อ-นามสกุล</label><input type="text" class="form-control" id="fullName" required placeholder="เช่น สมชาย ใจดี"></div><div class="mb-3"><label for="employeeId" class="form-label">รหัสพนักงาน</label><input type="text" class="form-control" id="employeeId" required placeholder="เช่น 12345"></div><button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ยืนยันและเริ่มต้นใช้งาน</button></form></div></div></div><div id="main-app"><main class="container py-3 pb-5 mb-5"><div id="home-page" class="page active"><div class="d-flex align-items-center p-3 mb-4 bg-white rounded-3 shadow-sm"><img id="user-profile-pic" src="https://placehold.co/60x60" class="rounded-circle me-3" width="60" height="60"><div><p class="mb-0 text-muted small" id="user-employee-id">รหัส: ...</p><h5 class="mb-0 fw-bold" id="user-display-name">...</h5></div><div class="ms-auto text-end"><div class="fw-bold text-primary"><h4 class="mb-0" id="user-score">0</h4><small>คะแนน</small></div></div></div><h5 class="mb-3">กิจกรรมล่าสุด</h5><div id="latest-activities-list"><p class="text-center text-muted">กำลังโหลดกิจกรรม...</p></div></div><div id="activities-page" class="page"><h4 class="mb-3 fw-bold">กิจกรรมทั้งหมด</h4><div id="all-activities-list"></div></div><div id="leaderboard-page" class="page"><h4 class="mb-3 fw-bold">กระดานผู้นำ</h4><p class="text-center text-muted mt-5">ฟังก์ชันนี้ยังไม่เปิดใช้งาน</p></div><div id="profile-page" class="page"><div class="card shadow-sm border-0"><div class="card-body text-center p-4"><img id="profile-page-pic" src="https://placehold.co/80x80" class="rounded-circle mb-3 border border-3 border-primary" width="80" height="80"><h4 id="profile-page-name" class="fw-bold">...</h4><p class="text-muted" id="profile-page-employee-id">รหัสพนักงาน: ...</p><p class="text-muted mb-4">คะแนนสะสม: <span class="fw-bold text-primary" id="profile-page-score">0</span></p></div></div></div><div id="admin-page" class="page"><div class="d-flex justify-content-between align-items-center mb-3"><h4 class="fw-bold">จัดการรายงาน (<span id="pending-count">0</span>)</h4><button class="btn btn-primary" id="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button></div><div class="card shadow-sm border-0"><div class="card-body p-0"><div class="table-responsive"><table class="table table-striped table-hover mb-0"><thead class="table-dark"><tr><th>ID</th><th>รายละเอียด</th><th>Actions</th></tr></thead><tbody id="submissions-table-body"></tbody></table></div><div id="loading-spinner" class="text-center my-4 d-none"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div><div id="no-data-message" class="text-center my-4 d-none"><p class="text-muted">ไม่มีรายการที่รอตรวจสอบ</p></div></div></div></div></main><nav class="navbar navbar-light bg-white fixed-bottom bottom-nav"><div class="container-fluid d-flex justify-content-around"><a href="#home" class="nav-link active text-center" data-page="home-page"><i class="fas fa-home fs-4"></i><div style="font-size: 0.7rem;">หน้าหลัก</div></a><a href="#activities" class="nav-link text-center" data-page="activities-page"><i class="fas fa-tasks fs-4"></i><div style="font-size: 0.7rem;">กิจกรรม</div></a><a href="#admin" class="nav-link text-center" data-page="admin-page" id="admin-nav-item" style="display: none;"><i class="fas fa-user-shield fs-4"></i><div style="font-size: 0.7rem;">Admin</div></a><a href="#leaderboard" class="nav-link text-center" data-page="leaderboard-page"><i class="fas fa-trophy fs-4"></i><div style="font-size: 0.7rem;">อันดับ</div></a><a href="#profile" class="nav-link text-center" data-page="profile-page"><i class="fas fa-user fs-4"></i><div style="font-size: 0.7rem;">โปรไฟล์</div></a></div></nav></div>
-    <div class="modal fade" id="submission-modal" tabindex="-1">...</div>
+    <!-- Modal: Submission Form -->
+    <div class="modal fade" id="submission-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submissionModalLabel">เข้าร่วมกิจกรรม</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="submission-form">
+                        <input type="hidden" id="activityId-input">
+                        <h5 id="activity-title-modal" class="fw-bold mb-3"></h5>
+                        <div class="mb-3">
+                            <label for="description-input" class="form-label">รายละเอียดจุดเสี่ยงที่พบ</label>
+                            <textarea class="form-control" id="description-input" rows="4" required placeholder="อธิบายสิ่งที่พบเจอ..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo-input" class="form-label">แนบรูปภาพ (ถ้ามี)</label>
+                            <input class="form-control" type="file" id="photo-input" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold mt-3 py-2">ส่งรายงาน</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -124,10 +217,8 @@
         async function showMainApp(userData) {
             updateUserInfoUI(userData);
             
-            // ⭐️⭐️ ตรวจสอบสถานะ Admin และแสดงเมนู ⭐️⭐️
             if (userData.isAdmin) {
                 $('#admin-nav-item').show();
-                // โหลดข้อมูลสำหรับ Admin เมื่อคลิกที่เมนู
                 $('#admin-nav-item').on('click', loadPendingSubmissions);
                 $('#refresh-btn').on('click', loadPendingSubmissions);
             }
@@ -138,7 +229,6 @@
             Swal.close();
         }
 
-        // --- Admin Functions ---
         function loadPendingSubmissions() {
             const tableBody = $('#submissions-table-body');
             const loadingSpinner = $('#loading-spinner');
@@ -185,20 +275,23 @@
             const submissionId = button.data('id');
             const rowIndex = button.data('row');
             
-            button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+            button.prop('disabled', true).parent().find('button').prop('disabled', true);
+            button.html('<span class="spinner-border spinner-border-sm"></span>');
             
             callApi(action, { submissionId, rowIndex }).then(() => {
-                $(`#row-${submissionId}`).fadeOut(500, function() { $(this).remove(); });
+                $(`#row-${submissionId}`).fadeOut(500, function() { 
+                    $(this).remove();
+                    const currentCount = parseInt($('#pending-count').text()) - 1;
+                    $('#pending-count').text(currentCount);
+                 });
             }).catch(error => {
                 Swal.fire('Error', 'เกิดข้อผิดพลาดในการดำเนินการ', 'error');
-                button.prop('disabled', false).html(button.hasClass('btn-approve') ? '✓' : '✗');
+                button.prop('disabled', false).parent().find('button').prop('disabled', false);
+                button.html(button.hasClass('btn-approve') ? '✓' : '✗');
             });
         });
-
-        // --- JSONP API Call Function ---
-        function callApi(action, payload = {}){return new Promise((resolve, reject) => {const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());window[callbackName] = function(data) {delete window[callbackName];document.body.removeChild(script);if (data.status === 'success') {resolve(data.data);} else {reject(new Error(data.message));}};const script = document.createElement('script');const payloadStr = encodeURIComponent(JSON.stringify(payload));script.src = `${SERVER_URL}?callback=${callbackName}&action=${action}&payload=${payloadStr}`;script.onerror = () => reject(new Error('Failed to load API script.'));document.body.appendChild(script);});}
         
-        // --- Other Functions ---
+        function callApi(action, payload = {}){return new Promise((resolve, reject) => {const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());window[callbackName] = function(data) {delete window[callbackName];document.body.removeChild(script);if (data.status === 'success') {resolve(data.data);} else {reject(new Error(data.message));}};const script = document.createElement('script');const payloadStr = encodeURIComponent(JSON.stringify(payload));script.src = `${SERVER_URL}?callback=${callbackName}&action=${action}&payload=${payloadStr}`;script.onerror = () => reject(new Error('Failed to load API script.'));document.body.appendChild(script);});}
         $('#registration-form').on('submit',async function(e){e.preventDefault();const fullName=$('#fullName').val().trim();const employeeId=$('#employeeId').val().trim();if(!fullName||!employeeId){Swal.fire('ข้อมูลไม่ครบ','กรุณากรอกข้อมูลให้ครบถ้วน','warning');return;}
         Swal.fire({title:'กำลังบันทึก...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});try{const newUser=await callApi('registerUser',{lineUserId:lineProfile.userId,displayName:lineProfile.displayName,pictureUrl:lineProfile.pictureUrl,fullName:fullName,employeeId:employeeId});$('#registration-page').hide();await showMainApp(newUser);Swal.fire('ลงทะเบียนสำเร็จ!','ยินดีต้อนรับสู่ Safety Spot','success');}catch(error){Swal.fire('เกิดข้อผิดพลาด','ไม่สามารถลงทะเบียนได้','error');}});
         $('.nav-link').on('click',function(e){e.preventDefault();const pageId=$(this).data('page');$('.nav-link').removeClass('active');$(this).addClass('active');$('.page').removeClass('active');$('#'+pageId).addClass('active');});
